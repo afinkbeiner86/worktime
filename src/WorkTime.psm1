@@ -32,6 +32,7 @@ function Calculate-WorkTime {
 
     # Calculate overtime (if worked more than 8 hours)
     $standardWorkDay = New-TimeSpan -Hours 8
+    $extendeddWorkDay = New-TimeSpan -Hours 9
     $maxNetWorkingHours = New-TimeSpan -Hours 10
     $overtime = New-TimeSpan -Minutes 0
     if ($netWorkTime -gt $standardWorkDay) {
@@ -56,10 +57,10 @@ function Calculate-WorkTime {
         Write-Host $overtime.ToString("h\:mm")
     }
 
-    # Display warning if break time is less than 45 minutes when working more than 8 hours
-    if ($netWorkTime -gt $standardWorkDay -and $BreakMinutes -lt 45) {
+    # Display warning if break time is less than 45 minutes when working more than 9 hours
+    if ($netWorkTime -gt $extendeddWorkDay -and $BreakMinutes -lt 45) {
         Write-Host "`nWARNING: " -NoNewline -ForegroundColor Red
-        Write-Host "Break time is less than the recommended 45 minutes for workdays exceeding 8 hours." -ForegroundColor Yellow
+        Write-Host "Break time is less than the recommended 45 minutes for workdays exceeding 9 hours." -ForegroundColor Yellow
     }
 
     # Display warning if netWorkTime is greater than 10 hours
